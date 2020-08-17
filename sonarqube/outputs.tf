@@ -83,9 +83,9 @@ output "lb_arn" {
   value = aws_lb.load_balancer.arn
 }
 
-output "lb_url" {
-  value = "https://${aws_route53_record.www.fqdn}"
-}
+# output "lb_url" {
+#   value = "https://${aws_route53_record.www.fqdn}"
+# }
 
 #--------------------------------------------------------------------
 # ecs

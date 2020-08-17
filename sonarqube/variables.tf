@@ -190,7 +190,7 @@ variable "asg_desired_capacity" {
 
 variable "asg_instance_type" {
   description = "The EC2 instance type to spin up for this auto-scaling group"
-  default     = ["t3a.xlarge", "t3.xlarge", "t2.xlarge"]
+  default     = ["t3.micro", "t3a.micro"]
 }
 
 variable "asg_ami_pattern" {
@@ -207,13 +207,13 @@ variable "asg_ami_owner" {
 # lb related
 #---------------------------------------------------------------
 
-variable "lb_cert_domain" {
-  description = "The domain that is represented by the ACM certificate we are using"
-}
+# variable "lb_cert_domain" {
+#   description = "The domain that is represented by the ACM certificate we are using"
+# }
 
-variable "lb_domain_name" {
-  description = "The domain name to be used for the Route53 entry"
-}
+# variable "lb_domain_name" {
+#   description = "The domain name to be used for the Route53 entry"
+# }
 
 variable "lb_fe_cidrs" {
   description = "CIDR blocks allowed onto the front end of the load balancer"

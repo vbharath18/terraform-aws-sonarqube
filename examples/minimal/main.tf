@@ -29,12 +29,12 @@ locals {
 # modules
 #------------------------------------------------------------------------------
 module "sonarqube" {
-  source             = "./modules/sonarqube"
+  source             = "../../sonarqube"
   region             = var.region
   vpc_id             = var.vpc_id
   subnet_ids         = var.subnet_ids
-  lb_domain_name     = var.lb_domain_name
-  lb_cert_domain     = var.lb_cert_domain
+  # lb_domain_name     = var.lb_domain_name
+  # lb_cert_domain     = var.lb_cert_domain
   availability_zones = var.availability_zones
   common_tags        = local.common_tags
 }

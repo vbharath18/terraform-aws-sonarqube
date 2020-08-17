@@ -1,33 +1,33 @@
 #--------------------------------------------------------------------
 # Get the Route53 domain information so we have the Hosted Zone ID
 #--------------------------------------------------------------------
-data "aws_route53_zone" "rt53domain" {
-  name = var.lb_domain_name
-}
+# data "aws_route53_zone" "rt53domain" {
+#   name = var.lb_domain_name
+# }
 
 #--------------------------------------------------------------------
 # Find a certificate issued by (not imported into) ACM
 #--------------------------------------------------------------------
-data "aws_acm_certificate" "cert_name" {
-  domain      = var.lb_cert_domain
-  types       = ["AMAZON_ISSUED"]
-  most_recent = true
-}
+# data "aws_acm_certificate" "cert_name" {
+#   domain      = var.lb_cert_domain
+#   types       = ["AMAZON_ISSUED"]
+#   most_recent = true
+# }
 
 #--------------------------------------------------------------------
 # Route53 Record Set
 #--------------------------------------------------------------------
-resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.rt53domain.zone_id
-  name    = "${var.asg_prefix}.${var.lb_domain_name}"
-  type    = "A"
+# resource "aws_route53_record" "www" {
+#   zone_id = data.aws_route53_zone.rt53domain.zone_id
+#   name    = "${var.asg_prefix}.${var.lb_domain_name}"
+#   type    = "A"
 
-  alias {
-    name                   = aws_lb.load_balancer.dns_name
-    zone_id                = aws_lb.load_balancer.zone_id
-    evaluate_target_health = false
-  }
-}
+#   alias {
+#     name                   = aws_lb.load_balancer.dns_name
+#     zone_id                = aws_lb.load_balancer.zone_id
+#     evaluate_target_health = false
+#   }
+# }
 
 #--------------------------------------------------------------------
 # load balancer
@@ -74,10 +74,10 @@ resource "aws_lb" "load_balancer" {
 
 resource "aws_lb_listener" "lb_listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = data.aws_acm_certificate.cert_name.arn
+  port              = "80"
+  protocol          = "HTTP"
+  # ssl_policy        = "ELBSecurityPolicy-2016-08"
+  # certificate_arn   = data.aws_acm_certificate.cert_name.arn
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.target_group.arn
@@ -139,8 +139,8 @@ resource "aws_security_group" "fe_sg" {
 
 resource "aws_security_group_rule" "allow_fe" {
   type        = "ingress"
-  from_port   = 443
-  to_port     = 443
+  from_port   = 80
+  to_port     = 80
   protocol    = "tcp"
   cidr_blocks = var.lb_fe_cidrs
   description = "Allow into front door"

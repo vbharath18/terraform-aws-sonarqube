@@ -76,7 +76,7 @@ resource "aws_launch_template" "asg_template" {
 # auto-scaling group
 #---------------------------------------------------------------
 resource "aws_autoscaling_group" "asg" {
-  availability_zones  = var.availability_zones
+  # availability_zones  = var.availability_zones
   desired_capacity    = var.asg_desired_capacity
   max_size            = var.asg_max_instances
   min_size            = var.asg_min_instances

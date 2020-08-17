@@ -17,10 +17,10 @@ variable "subnet_ids" {
   description = "List of Private Subnets IDs"
 }
 
-variable "lb_cert_domain" {
-  description = "The domain that is represented by the ACM certificate we are using"
-}
+# variable "lb_cert_domain" {
+#   description = "The domain that is represented by the ACM certificate we are using"
+# }
 
-variable "lb_domain_name" {
-  description = "The domain name to be used for the Route53 entry"
-}
+# variable "lb_domain_name" {
+#   description = "The domain name to be used for the Route53 entry"
+# }
